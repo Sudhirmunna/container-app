@@ -192,7 +192,7 @@
   .terminal pre {
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
     color: white;
-    padding: 0 1rem 1rem;
+    /* padding: 0 1rem 1rem; */
     margin: 0;
   }
 
@@ -209,6 +209,12 @@
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: 1s ease-out;
+  }
+  .align-react-output {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1em;
   }
 
   .circle-link:hover {
@@ -356,19 +362,34 @@
       <micro-app-b [profile]="data"></micro-app-b>
 
     </a>
-
+    <a class="card">
+      <react-el #myDiv></react-el>
+    </a>
+    <a class="card">
+      <vue-el #vueDiv></vue-el>
+    </a>
   </div>
 
 
-  <div class="terminal output-container" *ngIf="profile">
+  <div class="terminal output-container" *ngIf="profile || reactOutput != 0 || vueOutput">
     <h3><pre>Output from Micro Apps:</pre></h3>
-    <pre class="align-pre">
+    <pre class="align-pre" *ngIf="profile">
         <label for="">First Name: <span>{{profile?.detail?.firstName}}</span></label>
         
         <label for="">Last Name: <span>{{profile?.detail?.lastName}}</span></label>
     </pre>
+    <pre class="align-react-output" *ngIf="reactOutput != 0">
+      <h3><pre>Output from React Micro Apps:</pre></h3>
+      
+      <label for="">Count: <span>{{reactOutput}}</span></label>
+  </pre>
+  <pre class="align-react-output" *ngIf="vueOutput">
+    <h3><pre>Output from Vue Micro Apps:</pre></h3>
     
-    <button type="button" class="card highlight-card" (click)="getProfile()">Inject Data from Container to Micro App B</button>
+    <label for=""><span>{{vueOutput}}</span></label>
+</pre>
+    
+    <button type="button" class="card highlight-card" (click)="getProfile()">Inject Data from Container to Micro App B & React App</button>
 
   </div>
 
