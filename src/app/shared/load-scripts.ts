@@ -45,6 +45,11 @@ export const SCRIPTS = [
     src: 'http://localhost:4500/login-app.js'
   },
   {
+    name: 'homeApp',
+    url: '/home',
+    src: 'http://localhost:4600/home-app.js'
+  },
+  {
     name: 'microAppA',
     url: '/dashboard',
     src: 'http://localhost:4300/micro-app-a.js'
