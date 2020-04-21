@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { CanLoadScripts, SCRIPTS } from '../shared/load-scripts';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ export class DashboardComponent implements AfterViewInit {
   reactOutput = 0;
   vueMessage;
   vueOutput;
+  showReactButton = true;
+  showVueButton = true;
   @ViewChild('myDiv') divView: ElementRef;
   @ViewChild('vueDiv') vueDiv: ElementRef;
 
@@ -23,6 +26,8 @@ export class DashboardComponent implements AfterViewInit {
       this.profile = event;
     }
   }
+
+  constructor(private loadScript: CanLoadScripts) {}
 
   getProfile() {
     if (this.profile) {
@@ -56,4 +61,12 @@ export class DashboardComponent implements AfterViewInit {
 
   }
 
+  getScript(name) {
+    this.loadScript.generateScriptOnEvent(name);
+    if (name === 'reactApp') {
+      this.showReactButton = false;
+    } else if (name === 'vueApp') {
+      this.showVueButton = false;
+    }
+  }
 }
