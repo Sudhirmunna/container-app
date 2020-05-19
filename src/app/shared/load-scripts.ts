@@ -30,6 +30,9 @@ export class CanLoadScripts implements CanActivate {
         script.src = y.src;
         y.isLoaded = true;
         document.getElementsByTagName('head')[0].appendChild(script);
+        if (y.name === 'vueApp') {
+            this.loadCSS(y);
+        }
       }
     });
     return true;
@@ -44,11 +47,23 @@ export class CanLoadScripts implements CanActivate {
         script.src = y.src;
         y.isLoaded = true;
         document.getElementsByTagName('head')[0].appendChild(script);
+        if (y.name === 'vueApp') {
+          this.loadCSS(y);
+        }
       }
     });
     return true;
   }
+  loadCSS(y: any) {
+    const style = document.createElement('link');
+    style.type = 'text/css';
+    style.href = y.cssSrc;
+    y.isLoaded = true;
+    style.rel = 'stylesheet';
+    document.getElementsByTagName('head')[0].appendChild(style);
+  }
 }
+
 // configure the script to load based on route or event
 export const SCRIPTS = [
   {
@@ -89,7 +104,8 @@ export const SCRIPTS = [
   {
     name: 'vueApp',
     url: '/reuse',
-    src: 'http://localhost:5003/app.1ecec079.js',
-    isLoaded: false
+    src: 'http://localhost:5003/js/app.c4c036be.js',
+    isLoaded: false,
+    cssSrc: 'http://localhost:5003/css/app.1309f02a.css'
   }
 ];
